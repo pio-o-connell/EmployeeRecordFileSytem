@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Temporary Employee inherited from Emplyee class
+ * 
+ * 
  */
 package MenuMainDriver;
 
@@ -18,7 +18,6 @@ public class Temporary extends Employee {
 
     public Temporary(String employee_id0, String name0, String address0, double salary0, Calendar startDate0) {
         super(employee_id0, name0, address0, salary0, startDate0);
-
     }
 
     public Temporary() {
@@ -54,8 +53,8 @@ public class Temporary extends Employee {
         return nmrDaysWorked;
     }
 
-    public String toString() {
+  /*  public String toString() {
         return "\n" + label + "   " + getEmployeeId() + "  " + getName() + "  " + getAddress() + "    " + getSalary() + getStartDate() + "\n\n";
-    }
+    }*/
 
 }

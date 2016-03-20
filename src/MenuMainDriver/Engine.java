@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main Engine determine whether employee is Part-Time,Managerial or Full-Time
+ * Inherited class(Managerial,PartTime,Temporary) are for functionality thats different.
+ * 
  */
 package MenuMainDriver;
 
@@ -59,6 +59,7 @@ public static void addAnEmployee(Scanner keyboard,Employee employee0){
 	employee0.setAddress();
 	employee0.setSalary();
 	employee0.setStartDate();
+        employee0.setDOB();
 	//System.out.println(employee0);
 	
 	

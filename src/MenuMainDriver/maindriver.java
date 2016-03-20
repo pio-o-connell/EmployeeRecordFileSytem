@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Entry point to the program
+ * 
+ * 
  */
 package MenuMainDriver;
 
@@ -19,6 +19,7 @@ public class maindriver {
         Boolean runMenu = true;
         ArrayList<Employee> Employees = new ArrayList<Employee>();
         Employee tempEmployee;
+        Maintenance maintence = new Maintenance();
 
         while (runMenu) {
             int selection = Engine.MainMenu(input);
@@ -52,19 +53,21 @@ public class maindriver {
                     }
                     break;
                 case 2: // find an employee by id
-                    System.out.println("You wish to find an employee");
-                    String str = Maintenance.getSearchString(input);
-                    tempEmployee = Maintenance.checkIfExists(str, Employees);
-                    Maintenance.displayContentsOfRecord(tempEmployee);
+                    //  System.out.println("You wish to find an employee");
+                    String str = maintence.getSearchString(input);
+                    tempEmployee = maintence.checkIfExists(str, Employees);
+                    maintence.displayContentsOfRecord(tempEmployee);
                     break;
                 case 3:
                     System.out.println("You wish to modify employee details");
-                    str = Maintenance.getSearchString(input);
-                    tempEmployee = Maintenance.checkIfExists(str, Employees);
-                    tempEmployee.updateCustomerName();
-                    tempEmployee.updateCustomerAddress();
-                    tempEmployee.updateCustomersSalary();
-                    tempEmployee.updateStartDate();
+                    str = maintence.getSearchString(input);
+                    tempEmployee = maintence.checkIfExists(str, Employees);
+                    if (tempEmployee != null) {
+                        tempEmployee.updateCustomerName();
+                        tempEmployee.updateCustomerAddress();
+                        tempEmployee.updateCustomersSalary();
+        //                tempEmployee.updateStartDate();
+                    }
                     break;
                 case 4:
                     System.out.println("You wish to output all employees to a file");
@@ -73,8 +76,8 @@ public class maindriver {
                     break;
                 case 5:
                     System.out.println("You wish to calculate how much holiday pay due to employee");
-                    str = Maintenance.getSearchString(input);
-                    tempEmployee = Maintenance.checkIfExists(str, Employees);
+                    str = maintence.getSearchString(input);
+                    tempEmployee = maintence.checkIfExists(str, Employees);
                     Calendar tempstartDate = Calendar.getInstance();
                     long currentYear = tempstartDate.get(Calendar.YEAR);
 
@@ -107,8 +110,8 @@ public class maindriver {
                     break;
                 case 6:
                     System.out.println("You wish to calculate how long a staff member has worked with the company");
-                    str = Maintenance.getSearchString(input);
-                    tempEmployee = Maintenance.checkIfExists(str, Employees);
+                    str = maintence.getSearchString(input);
+                    tempEmployee = maintence.checkIfExists(str, Employees);
                     tempEmployee.getTimeWorked();
                     break;
                 case 7:

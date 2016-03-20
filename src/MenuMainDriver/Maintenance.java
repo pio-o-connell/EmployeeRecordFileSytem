@@ -13,7 +13,8 @@ import java.util.*;
  */
 public class Maintenance {
 
-    public static Employee checkIfExists(String accountNumber, ArrayList<Employee> Employees) {
+    //  public static Employee checkIfExists(String accountNumber, ArrayList<Employee> Employees) {
+    public Employee checkIfExists(String accountNumber, ArrayList<Employee> Employees) {
         Employee index = null;
 
         for (Employee element : Employees) {
@@ -28,17 +29,33 @@ public class Maintenance {
 
     }
 
-    public static void displayContentsOfRecord(Employee employee0) {
+    //  public static void displayContentsOfRecord(Employee employee0) {
+    public void displayContentsOfRecord(Employee employee0) {
+
+        Calendar cal = employee0.getStartDate();
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        int weekOfMonth = cal.get(Calendar.WEEK_OF_MONTH);
+        int monthOfYear = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        Calendar cal2 = employee0.getDOB();
+        int dayOfMonth2 = cal2.get(Calendar.DAY_OF_MONTH);
+        int weekOfMonth2 = cal2.get(Calendar.WEEK_OF_MONTH);
+        int monthOfYear2 = cal2.get(Calendar.MONTH);
+        int year2 = cal2.get(Calendar.YEAR);
+
         System.out.println("\n\t Employee Number " + employee0.getEmployeeId());
         System.out.println("\n\t  Employee Name " + employee0.getName());
+        System.out.println("\n\t  Employee DOB " + dayOfMonth2 + "/" + monthOfYear2 + "/" + year2);
         System.out.println("\n\t  Employee Address " + employee0.getAddress());
         System.out.println("\n\t  Employee Salary " + employee0.getSalary());
-        System.out.println("\n\t  Employee Start Date " + employee0.getStartDate());
+        System.out.println("\n\t  Employee Start Date " + dayOfMonth + "/" + monthOfYear + "/" + year);
     }
 
-    public static String getSearchString(Scanner keyboard) {
-        System.out.println("\n\n\n\nSearch by ID for an employee ...");
-        System.out.println("\n\t Enter Employee Number (e.g. M00118177)  ");
+    //public static String getSearchString(Scanner keyboard) {
+    public String getSearchString(Scanner keyboard) {
+        System.out.println("\nSearch by ID for an employee ...");
+        System.out.print("\n\t Enter Employee Number (e.g. M00118177):  ");
         String str = keyboard.nextLine();
         return str;
     }

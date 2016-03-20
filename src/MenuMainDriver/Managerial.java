@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Managerial Staff inherited from Employee class
+ * 
+ * 
  */
 package MenuMainDriver;
 
@@ -11,7 +11,6 @@ import java.util.*;
  *
  * @author Pio O'Connell
  */
-
 public class Managerial extends Employee {
 
     private double nmrDaysWorked;
@@ -55,8 +54,8 @@ public class Managerial extends Employee {
         return nmrDaysWorked;
     }
 
-    public String toString() {
+  /*  public String toString() {
         return "\n" + label + "   " + getEmployeeId() + "  " + getName() + "  " + getAddress() + "    " + getSalary() + getStartDate() + "\n\n";
-    }
+    }*/
 
 }

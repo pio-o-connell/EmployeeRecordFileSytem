@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Contains all the maintenance functionality for Employee
+ * 
+ * 20/03/1916
  */
 package MenuMainDriver;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author user
+ * @author Pio O'Connell
  */
 public abstract class Employee {
 
@@ -18,6 +18,7 @@ public abstract class Employee {
     private String name;
     private String address;
     private double salary;
+    private Calendar dateOfBirth;
     private Calendar startDate;
 //	private double nmrDaysWorked=0;
     Scanner keyboard = new Scanner(System.in);
@@ -48,10 +49,10 @@ public abstract class Employee {
         name = keyboard.nextLine();
     }
 
-    /*public void setName(String name0)
-	{
-		name = name0;
-	}*/
+    public void setName(String name0) {
+        name = name0;
+    }
+
     public String getEmployeeId() {
         return employee_id;
     }
@@ -63,6 +64,10 @@ public abstract class Employee {
 
     }
 
+    public void setEmployeeId(String employeeID0) {
+        employee_id = employeeID0;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -72,10 +77,10 @@ public abstract class Employee {
         address = keyboard.nextLine();
     }
 
-    /*public void setSalary(double salary0)
-	{
-		salary = salary0;
-	}*/
+    public void setAddress(String address0) {
+        address = address0;
+    }
+
     public double getSalary() {
         return salary;
     }
@@ -95,6 +100,14 @@ public abstract class Employee {
             }
         } while (!correctType);
 
+    }
+
+    public void setSalary(double salary0) {
+        salary = salary0;
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
     }
 
     public void setStartDate() {
@@ -136,6 +149,57 @@ public abstract class Employee {
         startDate = tempstartDate;
     }
 
+    public void setStartDate(Calendar date0) {
+        startDate = date0;
+    }
+
+    public Calendar getDOB() {
+        return dateOfBirth;
+    }
+
+    public void setDOB() {
+
+        Boolean correctType = false;
+        Calendar tempstartDate = Calendar.getInstance();
+
+        do {
+            try {
+                System.out.println("\n\tEnter employee DOB e.g. e.g. 10/03/1969");
+                String str1 = keyboard.nextLine();
+//				 System.out.println(str1);
+                String str[] = str1.split("/");
+
+                int day = Integer.parseInt(str[0]);
+                int month = Integer.parseInt(str[1]);
+                int year = Integer.parseInt(str[2]);
+
+                tempstartDate.set(Calendar.YEAR, year);
+
+                tempstartDate.set(Calendar.MONTH, month);
+                tempstartDate.set(Calendar.DAY_OF_MONTH, day);
+                tempstartDate.set(Calendar.HOUR_OF_DAY, (int) 0);
+                tempstartDate.set(Calendar.MINUTE, (int) 0);
+                tempstartDate.set(Calendar.SECOND, (int) 0);
+//				 System.out.println(startDate);
+                correctType = true;
+            } catch (java.util.InputMismatchException e) {
+                correctType = false;
+                System.out.println("\n\t Invalid .Enter employee start date e.g. 10/03/1969 ");
+                //	 keyboard.next();
+            } catch (java.lang.NumberFormatException e1) {
+                correctType = false;
+                System.out.println("\n\t Invalid .Enter employee start date e.g. 10/03/1969 ");
+
+            }
+
+        } while (!correctType);
+        dateOfBirth = tempstartDate;
+    }
+
+    public void setDOB(Calendar date0) {
+        dateOfBirth = date0;
+    }
+
     /*	public void setNmrDaysWorked(){
 		
 		boolean correctType = false;
@@ -174,16 +238,43 @@ public abstract class Employee {
 
     }
 
-    public Calendar getStartDate() {
-        return startDate;
-    }
 
     /*public Calendar getStartDate()
 	{
 		return startDate;
 	}*/
     public String toString() {
-        return "\n" + this.employee_id + "  " + this.name + "  " + this.address + "  " + this.salary + this.startDate + "\n\n";
+        int start_Date1, start_Date2, start_Date3;
+        int DOB1,DOB2,DOB3;
+        String StaffType = new String();
+        
+        DOB1 = startDate.get(Calendar.MONTH);
+        DOB2 = startDate.get(Calendar.YEAR);
+        DOB3 = startDate.get(Calendar.DAY_OF_MONTH);
+        start_Date1 = dateOfBirth.get(Calendar.MONTH);
+        start_Date2 = dateOfBirth.get(Calendar.YEAR);
+        start_Date3 = dateOfBirth.get(Calendar.DAY_OF_MONTH);
+        
+        if (this instanceof FullStaff) {
+            StaffType = "Full Time Staff";
+        }
+            else if (this instanceof Managerial){
+                StaffType = "Managerial Staff";
+            }
+                else if (this instanceof Temporary){
+                     StaffType = "Temporary";
+                }
+    
+        
+        return "\n Employee ID : " + this.employee_id 
+                    + "\n Employee Name : " + this.name
+                        + "\n Employee DOB : "+ DOB3+"\\"+ DOB1+"\\"+DOB2 
+                          + " \n Employment Type : " + StaffType
+                            + " \n Employee Address : " + this.address
+                                + "\n Employee Salary" + this.salary
+                                   + "\n Employee Start Date" + start_Date3+"\\"+start_Date1+"\\"+start_Date2
+                                      + "\n\n\n";
+                
     }
 
     public void updateCustomerName() {
@@ -191,7 +282,7 @@ public abstract class Employee {
         System.out.println("Type in the new customer\'s name if you wish to update,otherwise hit return\n");
         String name = keyboard.nextLine();
         if (name.length() != 0) {
-            setName();
+            setName(name);
         }
     }
 
@@ -200,12 +291,13 @@ public abstract class Employee {
         System.out.println("Type in the new customer\'s address if you wish to update,otherwise hit return\n");
         String address = keyboard.nextLine();
         if (address.length() != 0) {
-            setName();
+            setAddress(address);
         }
     }
 
     public void updateCustomersSalary() {
         String tempSalary = null;
+        double tempSalaryValue = 0;
 
         Boolean invalidInput = true;
         System.out.println("Current customer's salary is: " + getSalary());
@@ -217,7 +309,8 @@ public abstract class Employee {
                 break;
             } else if (tempSalary.length() != 0) {
                 try {
-                    salary = Double.parseDouble(tempSalary);
+                    tempSalaryValue = Double.parseDouble(tempSalary);
+                    setSalary(tempSalaryValue);
                     invalidInput = false;
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input. Type in the new customer\'s salary if you wish to update,otherwise hit return\n");
@@ -228,11 +321,12 @@ public abstract class Employee {
 
     public void updateStartDate() {
         String date = null;
+        Calendar tempDate = null;
 
         Boolean invalidInput = true;
         System.out.println("Current customer's start date is: " + getStartDate());
 
-        System.out.println("Type in the new customer\'s salary if you wish to update,otherwise hit return\n");
+        System.out.println("Type in the new customer\'s start date if you wish to update,otherwise hit return\n");
 
         do {
             date = keyboard.nextLine();
@@ -248,10 +342,50 @@ public abstract class Employee {
                     int month = Integer.parseInt(str[1]);
                     int year = Integer.parseInt(str[2]);
 
-                    startDate.set(Calendar.YEAR, year);
-                    startDate.set(Calendar.MONTH, month);
-                    startDate.set(Calendar.DAY_OF_MONTH, day);
-//				 System.out.println(startDate);
+                    tempDate.set(Calendar.YEAR, year);
+                    tempDate.set(Calendar.MONTH, month);
+                    tempDate.set(Calendar.DAY_OF_MONTH, day);
+                    setStartDate(tempDate);
+                    invalidInput = false;
+                } catch (java.util.InputMismatchException e) {
+                    invalidInput = false;
+                    System.out.println("\n\t Invalid .Enter employee start date e.g. 10/03/1969 ");
+                    //	 keyboard.next();
+                } catch (java.lang.NumberFormatException e1) {
+                    invalidInput = false;
+                    System.out.println("\n\t Invalid .Enter employee start date e.g. 10/03/1969 ");
+                }
+            }
+        } while (invalidInput);
+    }
+
+    public void updateDOB() {
+        String date = null;
+        Calendar tempDate = null;
+
+        Boolean invalidInput = true;
+        System.out.println("Current customer's start date is: " + getDOB());
+
+        System.out.println("Type in the new customer\'s start date if you wish to update,otherwise hit return\n");
+
+        do {
+            date = keyboard.nextLine();
+            if (date.length() == 0) {
+                break;
+            } else if (date.length() != 0) {
+                try {
+                    System.out.println("\n\tEnter employee DOB e.g. e.g. 10/03/1969");
+                    String str1 = keyboard.nextLine();
+                    String str[] = str1.split("/");
+
+                    int day = Integer.parseInt(str[0]);
+                    int month = Integer.parseInt(str[1]);
+                    int year = Integer.parseInt(str[2]);
+
+                    tempDate.set(Calendar.YEAR, year);
+                    tempDate.set(Calendar.MONTH, month);
+                    tempDate.set(Calendar.DAY_OF_MONTH, day);
+                    setDOB(tempDate);
                     invalidInput = false;
                 } catch (java.util.InputMismatchException e) {
                     invalidInput = false;
